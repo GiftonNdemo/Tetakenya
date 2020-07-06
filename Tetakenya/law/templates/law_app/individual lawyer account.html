@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+{% load static%}
+<html>
+<head>
+    <title>individual lawyer</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.css' %}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale-1.0" shrink-to-fit=no>
+    <style>
+    body, html {
+    height: 100%;
+}
+.profile-image{
+    width:270;
+    height:200px;
+}
+    </style>
+</head>
+<body style="background-color:#d9d9d9;">
+{% include 'law common_templates/nav-bar.html' %}
+{% include 'law common_templates/messages.html' %}
+<div class="container">
+    <div class="jumbotron" style="background-color:white;">
+        <div class="card" style="width:270px;">
+            <img class="profile-image card-img-top"
+                 src="{{advocate.profile_pic.url}}"
+                 alt="Card image">
+            <div class="card-body">
+                <p class="card-title">Name: <b>{{ advocate.first_name }}</b></p>
+                <p class="card-text">County: <b>{{ advocate.county }}</b></p>
+                <p class="card-text">Experience: <b>{{ advocate.experience }} Years</b></p>
+            </div>
+        </div>
+        <br><br>
+        {% if services %}
+        <table class="table">
+            <thead>
+            <tr>
+                <th style="color:black;">#</th>
+                <th style="color:black;">Services offered</th>
+                <th style="color:black;">Cost</th>
+                <th style="color:black;">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for service in services %}
+            <tr>
+                <th scope="row"><span><i class="fa fa-legal"></i></span></th>
+                <th scope="row">{{ service.Service_Name }}</th>
+                <td>Kshs.{{ service.Service_Cost }}</td>
+                <td>
+                    <a href="{% url 'book' service.id %}" class="btn btn-sm btn-success"><span><i class="fa fa-check-square-o"></i></span> Book</a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <h4 style="color:maroon;">No services yet.</h4>
+        {% endif %}
+    </div>
+</div>
+
+<!-- <a href="#" class="btn btn-primary" style="position:absolute;left:40%;">Book an appointment</a> -->
+
+<script src="{% static 'js/jquery-3.4.1.slim.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>

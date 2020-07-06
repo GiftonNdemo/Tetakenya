@@ -1,0 +1,43 @@
+{% load static%}
+<nav class="navbar navbar-expand-md sticky-top navbar-light bg-light mb-3">
+    <div class="container-fluid">
+        <img src="{% static 'C:\Users\My World\Desktop\school project\Tetakenya\law\static\images\lawlogo2.jpg' %}"
+             class="navbar-brand" style="width:100px;height:100px;">
+        <!-- <h6 style="color:maroon;position:absolute;left:3%;top:82.5%">TetaKenya</h6> -->
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar navbar-nav">
+                <a href="{% url 'Homepage' %}" class="nav-item nav-link"
+                   style="color: black;font-size:14px;position:relative;left:10%"><span><i class="fa fa-home"></i></span> <b>Home</b></a>
+                {% if user.is_authenticated and user.is_lawyer%}
+                <a href="{% url 'myprofile' %}" class="nav-item nav-link"
+                   style="color: black;font-size:14px;position:relative;left:10%"><span><i class="fa fa-user-circle-o"></i></span> <b>my profile</b></a>
+                {% elif user.is_authenticated and user.is_client %}
+                <a href="{% url 'clientaccount' %}" class="nav-item nav-link"
+                   style="color: black;font-size:14px;position:relative;left:10%"><span><i class="fa fa-group"></i></span> <b>Lawyers</b></a>
+                <a href="{% url 'appointments' %}" class="nav-item nav-link"
+                   style="color: black;font-size:14px;position:relative;left:10%"><span><i class="fa fa-shopping-cart"></i></span> <b>My appointments</b></a>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                    <a href="#" class="nav-item nav-link"
+                   style="color: black;font-size:14px;position:relative;left:10%"><h6><span><i class="fa fa-handshake-o"></i></span> <b>Welcome, {{ user.first_name }}</b></h6></a>
+                <a href="{% url 'logout' %}" class="nav-item nav-link"
+                   style="color: black;font-size:14px;position:relative;left:10%"><span><i class="fa fa-sign-out"></i></span> <b>Log-out</b></a>
+                    {% else %}
+                <li class="nav-item dropdown" style="color:white;font-size:14px;position:relative;left:10%;">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
+                       style="color: black;font-size:14px;position:relative;left:10%;"><span><i class="fa fa-address-book"></i></span> <b>Sign-up</b></a>
+                    <div class="dropdown-menu" style="color:white;font-size:12px;">
+                        <a href="{% url 'client_register' %}" class="dropdown-item"><span><i class="fa fa-user"></i></span> as client</a>
+                        <a href="{% url 'lawyer_register' %}" class="dropdown-item"><span><i class="fa fa-user-plus"></i></span> as lawyer</a>
+                    </div>
+                </li>
+                <a href="{% url 'login' %}" class="nav-item nav-link"
+                   style="color: black;font-size:14px;position:relative;left:10%"><span><i class="fa fa-sign-in"></i></span> <b>Log-in</b></a>
+                    {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
